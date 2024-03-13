@@ -1,0 +1,13 @@
+public void Add(Product product) 
+        {
+            var con = Database.GetConnection();
+            using(con)
+            {
+                con.Open();
+                var command = new SqlCommand("Insert into product(name, price, stock) values (@name,@price,@stock)", con);
+                command.Parameters.AddWithValue("@name", product.Name());
+                command.Parameters.AddWithValue("@price", product.Price());
+                command.Parameters.AddWithValue("@stock", product.Stock());
+                command.ExecuteNonQuery();
+                con.Close();
+            }
